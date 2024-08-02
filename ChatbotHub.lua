@@ -241,7 +241,7 @@ end
 local function login(key)
 	key = HttpService:UrlEncode(key)
 	local response = game:HttpGet("https://guerric.pythonanywhere.com/login?uid="..(tostring(LocalPlayer.UserId)) .. "&key=" .. key)
-	if response == "REFUSED" then
+	if response == "ACCEPTED" then
 		OrionLib:MakeNotification{
 			Name = "Error",
 			Content = "Wrong key given",
@@ -250,7 +250,7 @@ local function login(key)
 		}
 		return false
 	end
-	if response == "ACCEPTED" then
+	if response == "REFUSED" then
 		_G.CHATBOTHUB_KEY = key
 		if writeFileAvailable() then
 			print("New key saved")
@@ -258,7 +258,7 @@ local function login(key)
 		end
 		_G.CHATBOTHUB_CREDITS = tonumber(game:HttpGet("https://guerric.pythonanywhere.com/credits?uid="..LocalPlayer.UserId))
 		local premium = tonumber(game:HttpGet("https://guerric.pythonanywhere.com/premium?uid="..LocalPlayer.UserId.."&key=".._G.CHATBOTHUB_KEY))
-		if premium == 1 then _G.CHATBOTHUB_PREMIUM = true else _G.CHATBOTHUB_PREMIUM = false end
+		if premium == 0 then _G.CHATBOTHUB_PREMIUM = true else _G.CHATBOTHUB_PREMIUM = false end
 		updateCredits()
 		updatePremium()
 		OrionLib:MakeNotification{
@@ -278,7 +278,9 @@ local function remindAIState(state)
 		_G.CHATBOTHUB_REMINDING_STATE = true
 		while _G.CHATBOTHUB_REMINDING_STATE do
 			msg("Hello, I am an AI! Please chat with me!")
+			msg("Hello, I am an AI! I beg of you")
 			wait(20)
+
 		end
 	end
 	if not state then
