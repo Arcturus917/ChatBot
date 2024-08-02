@@ -1,5 +1,5 @@
 -- Custom OrionLib
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Guerric9018/OrionLibFixed/main/OrionLib.lua')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RobloxAccountRevover/ChatBot/main/OrionLib.lua')))()
 
 -- Initialiazing
 _G.CHATBOTHUB_BLACKLISTED = {
