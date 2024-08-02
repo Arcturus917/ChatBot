@@ -118,9 +118,9 @@ local AiModels = {
 
 -- Cost of each AI model
 local AiCost = {
-	["Llama-8B ( default | 5 points )"] = 5,
-	["Llama2-7B ( if default one fails | 5 points )"] = 5,
-	["Llama-70B ( 50 points )"] = 50
+	["Llama-8B ( default | 0 points )"] = 0,
+	["Llama2-7B ( if default one fails |  points )"] = 0,
+	["Llama-70B ( 0 points )"] = 0
 }
 
 -- Languages
