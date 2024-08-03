@@ -1,5 +1,5 @@
 -- Custom OrionLib
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/RobloxAccountRevover/ChatBot/main/OrionLib.lua')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Guerric9018/OrionLibFixed/main/OrionLib.lua')))()
 
 -- Initialiazing
 _G.CHATBOTHUB_BLACKLISTED = {
@@ -111,16 +111,16 @@ local AIs = {
 
 -- AI models
 local AiModels = {
-	"Llama-8B ( default | 0 points )",
-	"Llama2-7B ( if default one fails | 0 points )",
-	"Llama-70B ( 0 points )"
+	"Llama-8B ( default | 5 points )",
+	"Llama2-7B ( if default one fails | 5 points )",
+	"Llama-70B ( 50 points )"
 }
 
 -- Cost of each AI model
 local AiCost = {
-	["Llama-8B ( default | 0 points )"] = 0,
-	["Llama2-7B ( if default one fails |  points )"] = 0,
-	["Llama-70B ( 0 points )"] = 0
+	["Llama-8B ( default | 5 points )"] = 5,
+	["Llama2-7B ( if default one fails | 5 points )"] = 5,
+	["Llama-70B ( 50 points )"] = 50
 }
 
 -- Languages
@@ -241,7 +241,7 @@ end
 local function login(key)
 	key = HttpService:UrlEncode(key)
 	local response = game:HttpGet("https://guerric.pythonanywhere.com/login?uid="..(tostring(LocalPlayer.UserId)) .. "&key=" .. key)
-	if response == "ACCEPTED" then
+	if response == "REFUSED" then
 		OrionLib:MakeNotification{
 			Name = "Error",
 			Content = "Wrong key given",
@@ -250,7 +250,7 @@ local function login(key)
 		}
 		return false
 	end
-	if response == "REFUSED" then
+	if response == "ACCEPTED" then
 		_G.CHATBOTHUB_KEY = key
 		if writeFileAvailable() then
 			print("New key saved")
@@ -258,7 +258,7 @@ local function login(key)
 		end
 		_G.CHATBOTHUB_CREDITS = tonumber(game:HttpGet("https://guerric.pythonanywhere.com/credits?uid="..LocalPlayer.UserId))
 		local premium = tonumber(game:HttpGet("https://guerric.pythonanywhere.com/premium?uid="..LocalPlayer.UserId.."&key=".._G.CHATBOTHUB_KEY))
-		if premium == 0 then _G.CHATBOTHUB_PREMIUM = true else _G.CHATBOTHUB_PREMIUM = false end
+		if premium == 1 then _G.CHATBOTHUB_PREMIUM = true else _G.CHATBOTHUB_PREMIUM = false end
 		updateCredits()
 		updatePremium()
 		OrionLib:MakeNotification{
@@ -278,9 +278,7 @@ local function remindAIState(state)
 		_G.CHATBOTHUB_REMINDING_STATE = true
 		while _G.CHATBOTHUB_REMINDING_STATE do
 			msg("Hello, I am an AI! Please chat with me!")
-			msg("Hello, I am an AI! I beg of you")
 			wait(20)
-
 		end
 	end
 	if not state then
